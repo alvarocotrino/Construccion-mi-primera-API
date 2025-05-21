@@ -1,0 +1,29 @@
+{
+  "name": "construccion",
+  "version": "1.0.0",
+  "description": "Mi primera Apirest con Node.js y express ",
+  "homepage": "https://github.com/alvarocotrino/proyectouno#readme",
+  "bugs": {
+    "url": "https://github.com/alvarocotrino/proyectouno/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvarocotrino/proyectouno.git"
+  },
+  "license": "ISC",
+  "author": "Alvaro",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "moongose": "^1.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
