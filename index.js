@@ -7,22 +7,29 @@ const bodyparcer = require ( "body-parser");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json()); 
 
-const postrutas = require("./rutas/post);")
+const postrutas = require("./rutas/post)");
 app.use("./servicios",postrutas);
 
 
-mongoose.connect("mongodb+srv://alvarocotrino:zf8Vu0JQkqvbqdKj@cluster0.dxd8od2.mongodb.net/lunes?retryWrites=true&w=majority&appName=Cluster0")
-    .then(() => console.log("¡Conectado a MongoDB Atlas con éxito!"))
-    .catch(err => console.error("Error al conectar a MongoDB Atlas:", err));  
-  
-  
+
+mongoose.connect(
+  "mongodb+srv://alvarocotrino:zf8Vu0JQkqvbqdKj@cluster0.dxd8od2.mongodb.net/lunes?retryWrites=true&w=majority&appName=Cluster0",
+  { // <--- Este es el segundo argumento
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
 
-  //app.get("/", (req, res) => {  
+  const connection = mongoose.connection; // creo conexion a la base de datos
+  connection.once("open", () =>  {
+    console.log ("MongoDB conexion de la base de daatos establecidad");
+  });
+
+
+//app.get("/", (req, res) => {  
   //res.send(" servidor funcionando");
   //});
  
  
-  
-  app.listen(10000);
+  app.listen(10000);// puerto por donde escucha
  
