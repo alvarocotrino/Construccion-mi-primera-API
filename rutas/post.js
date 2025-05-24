@@ -16,7 +16,6 @@ rutas.get("/", async (req, res) => { // el get me trae todo los pots que tiene l
 });
 
 
-
 rutas.get("/:postId", async (req, res) => { // este solo me llama un post id
     try {
         const post = await Post.findById(req.params.postId); // 1. Corregido findById y 2. Quitado paréntesis extra
