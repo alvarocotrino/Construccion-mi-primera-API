@@ -8,8 +8,9 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 mongoose.connect(
-  "mongodb+srv://alvarocotrino:zf8Vu0JQkqvbqdKj@cluster0.dxd8od2.mongodb.net/lunes?retryWrites=true&w=majority&appName=Cluster0",
-  {
+  "mongodb+srv://alvarocotrino:lw1IzDZm9wh2QPbOj@cluster0.dxd8od2.mongodb.net/lunes?retryWrites=true&w=majority&appName=Cluster0",
+  
+    {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
