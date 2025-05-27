@@ -1,8 +1,4 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import morgan from "morgan";
-import postrutas from "./routes/post.js"; // importo las rutas
+const express =require("express");
 const app = express();
 const mongoose =require("mongoose")
 const cors= require("cors");
