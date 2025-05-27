@@ -1,7 +1,6 @@
 const express = require("express"); // importo express
 const rutas = express.Router();
 const Post = require('../models/Post'); // importa el modelo correctamente
-
 // GET todos los posts
 rutas.get("/", async (req, res) => {
     try { 
@@ -11,7 +10,6 @@ rutas.get("/", async (req, res) => {
         res.status(500).json({ message: err.message});
     }
 });
-
 // GET un post por ID
 rutas.get("/:postId", async (req, res) => {
     try {
@@ -21,8 +19,7 @@ rutas.get("/:postId", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-    
-// POST crear un nuevo post
+    // POST crear un nuevo post
 rutas.post("/", async (req, res) => {
     const post = new Post({
         title: req.body.title,
@@ -35,7 +32,6 @@ rutas.post("/", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
 rutas.patch("/:postId", async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
@@ -51,7 +47,6 @@ rutas.patch("/:postId", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
 rutas.delete("/:postId", async (req, res) => { //eliminar un post
     try {
         const post = await Post.findById(req.params.postId);
@@ -61,5 +56,4 @@ rutas.delete("/:postId", async (req, res) => { //eliminar un post
         res.status(500).json({ message: err.message });
     }
 });
-
 module.exports = rutas; // exporta el router correctamente

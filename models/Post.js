@@ -1,10 +1,14 @@
 const mongoose = require("mongoose"); 
 const PostSchemas = new mongoose.Schema({
-    title:{
+    placa:{
           type:String,
           required:true
     },
-    description:{
+    modelo:{
+          type:String,
+          required:true
+    },
+    marca:{
         type:String,
         required:true
     },
