@@ -1,18 +1,30 @@
-const express =require('express');
+const express = require('express');
 const app = express();
-const mongoose =require('mongoose');
-const cors= require('cors');
+const mongoose = require('mongoose');
+const cors = require('cors');
 const morgan = require('morgan');
-const bodyparcer = require('body-parser');
-app.use(bodyparcer.json());
-const postrutas=require('./routes/post');
-app.use('/servicios',postrutas);
-  
-mongoose.connect('mongodb+srv://alvarocotrino:lw1IzDZm9wh2QPbO@cluster0.dxd8od2.mongodb.net/lunes?retryWrites=true&w=majority&appName=Cluster0');
+const postrutas = require('./routes/post');
 
-const connection = mongoose.connection; // creo conexion a la base de datos mongoDB
+// Middlewares
+app.use(express.json());
+app.use(cors());
+app.use(morgan('dev'));
+
+// Rutas
+app.use('/servicios', postrutas);
+
+// Conexión a MongoDB
+
+   //useNewUrlParser: true,
+    //useUnifiedTopology: true
+mongoose.connect('mongodb+srv://alvarocotrino1:3xw8WfWqoLrn3gEd@cluster0.ulzy08l.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',);
+const connection = mongoose.connection;
 connection.once("open", () => {
-   console.log("MongoDB conexion exitosa a la base de datos establecida");
-
+    console.log("MongoDB conexion exitosa a la base de datos establecida");
 });
+connection.on('error', (err) => {
+    console.error('Error de conexión a MongoDB:', err);
+});
+
+// Escuchar en el puerto
 app.listen(10000);
