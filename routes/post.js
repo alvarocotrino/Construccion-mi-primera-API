@@ -2,7 +2,7 @@ const express = require("express"); // importo express
 const rutas = express.Router();
 const Post = require('../models/Post'); // importa el modelo correctamente
 // GET todos los posts
-    rutas.get('/', async (_req, res) => {
+    rutas.get('/',  async (_req, res) => {
     try {
         const posts = await Post.find(); // busca todos los posts
         res.json(posts); // devuelve los posts en formato JSON
@@ -10,10 +10,10 @@ const Post = require('../models/Post'); // importa el modelo correctamente
         res.status(500).json({ message: err.message }); // maneja errores
     } 
 });
-// GET un post por placa
-rutas.get('/:placa', async (req, res) => {
+// GET un post por isbn
+rutas.get('/:isbn', async (req, res) => {
     try {
-        const post = await Post.findOne(req.params.placa); 
+        const post = await Post.findOne({ isbn: req.params.isbn }); 
         res.json(post);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -21,43 +21,52 @@ rutas.get('/:placa', async (req, res) => {
 });
     // POST crear un nuevo post
 rutas.post('/', async (req, res) => {
-    const nuevaplaca = new Post({
-        placa: req.body.placa,
-        modelo: req.body.modelo,
-        marca: req.body.marca,
-        condicion: req.body.condicion
+    const nuevoisbn = new Post({
+
+        isbn: req.body.isbn,
+        titulo: req.body.titulo,
+        autor: req.body.autor,
+        genero: req.body.genero
+        
     });
     try {
-        const savedPost = await nuevaplaca.save();
+        const savedPost = await nuevoisbn.save();
         res.json(savedPost);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-rutas.patch('/:placa', async (req, res) => {
+rutas.patch('/:isbn', async (req, res) => { //actualizar un post
     try {
         const updatedPost = await Post.findOneAndUpdate(
+            { isbn: req.params.isbn },
             {
                 $set: {
-                    placa: req.body.placa,
-                    modelo: req.body.modelo,
-                    marca: req.body.marca,
-                    condicion: req.body.condicion
+                    isbn: req.body.isbn,
+                    titulo: req.body.titulo,
+                    autor: req.body.autor,
+                    genero: req.body.genero
                 }
             },
+            { new: true }
         );
         res.json(updatedPost);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-rutas.delete('/:placa', async (req, res) => { //eliminar un post
+
+
+rutas.delete('/:isbn', async (req, res) => { 
     try {
-        const post = await Post.findondeanddelete(req.params.postId);
-        await post.remove();
-        res.json({ message: "Post deleted" });
+        const post = await Post.findOneAndDelete({ isbn: req.params.isbn});
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        res.json({ message: 'Post deleted' });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
+
 module.exports = rutas; // exporta el router correctamente
